@@ -20,3 +20,9 @@ javavisual-tp03-253303621247/
 ├── screenshots/
 │   └── output.png
 └── README.md
+
+## Identitas Mahasiswa
+- **Nama Lengkap:** Yeremia Mesakh S. Kembaren
+- **NIM:** 253303621247
+- **Kelas:** Semester 3 PAGI A
+- **Dokumen Analisis Desain (Bagian D):** [Link Google Docs Bagian D](https://docs.google.com/document/d/1MQDKatzEaXfBc7buEQOPOUtTC96TufAhxZ9xtd9hWFg/edit?usp=sharing)
