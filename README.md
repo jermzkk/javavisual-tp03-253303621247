@@ -3,7 +3,7 @@
 Aplikasi **Character Manager** adalah sistem pengelolaan karakter game berbasis Pemrograman Berbasis Objek (OOP) menggunakan bahasa Java. Proyek ini mendemonstrasikan penerapan enkapsulasi, validasi status karakter (seperti mana dan HP), serta penggunaan enum.
 
 ## Screenshot Output Terminal
-![Terminal Output](screenshots/output.png)
+![Terminal Output](Hasil.png)
 
 ## Struktur Folder Project
 ```text
