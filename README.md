@@ -62,7 +62,7 @@ Proyek ini menggabungkan implementasi `CharacterManager` dari AP6 dengan analisi
 Berikut adalah screenshot hasil eksekusi program `Main.java` yang mencakup pengujian CRUD, penolakan nama duplikat, pengujian edge case, dan bukti eksperimen *Defensive Copying*:
 
 ## Screenshot Output Terminal
-![Terminal Output](screenshots/Hasil AP6.png)
+![Terminal Output](screenshots/HasilAP6.png)
 
 ## 4. Dokumen Analisis (Bagian D)
 
