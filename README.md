@@ -69,3 +69,19 @@ Berikut adalah screenshot hasil eksekusi program `Main.java` yang mencakup pengu
 Analisis konseptual mendalam (minimal 500 kata) mengenai *Reference Memory*, *Primitive vs Reference Value*, *Keyword Static*, *Equals Method*, dan *Encapsulation Risk* telah disusun pada Google Docs berikut:
 
 🔗 **Link Google Docs:** [JavaVisual_TP05_253303621247_Yeremia Mesakh S. Kembaren](https://docs.google.com/document/d/1Q_mh1oaMfYn4Nc5uvbogwSw6kZ278mL0wGoQfhVToU4/edit?usp=sharing)
+
+# TP8 - Character Manager Sprint #3
+
+## Screenshot Aplikasi
+
+![MainWindow Sesudah Data Ditambah](screenshots/Hasil8.png)
+
+## Aliran Data (Main -> CharacterManager -> MainWindow)
+Data diawali di `Main` dengan menginstansiasi `CharacterManager` dan menambahkan beberapa objek `Character`. Objek `CharacterManager` yang menampung daftar data tersebut kemudian diteruskan ke konstruktor `MainWindow`. Di dalam `MainWindow`, data diiterasi secara dinamis untuk membangun komponen visual UI (JLabel). Dalam pola MVC, `Main` bertindak sebagai pengatur awal, `CharacterManager` sebagai Model, dan `MainWindow` sebagai View.
+
+## Daftar Karakter Baru
+1. **Shadow (ASSASSIN, Level 18):** Dipilih untuk menambah variasi tipe petarung jarak dekat dengan tingkat kecepatan tinggi serta menaikkan rata-rata level tim.
+2. **Luna (HEALER, Level 14):** Dipilih untuk melengkapi peran pendukung (support) dalam tim agar komposisi tipe karakter seimbang.
+
+## Dokumen Analisis (Bagian D)
+[Dokumen Analisis GUI & MVC - Google Docs](https://docs.google.com/document/d/14EX5tiufCEO7KzcD3NU9e-rfu9R4p5NbmbwNcC3ZSJk/edit)
