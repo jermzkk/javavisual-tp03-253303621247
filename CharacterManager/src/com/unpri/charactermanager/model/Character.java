@@ -40,7 +40,6 @@ public class Character {
         this.level = level;
     }
 
-    // Bagian A No 1: Meng-override equals() berbasis NAMA
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
