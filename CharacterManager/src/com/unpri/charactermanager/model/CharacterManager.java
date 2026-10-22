@@ -18,7 +18,7 @@ public class CharacterManager {
         return characterList;
     }
 
-    // Perhitungan statistik rata-rata level untuk Bagian B
+    // Perhitungan statistik Rata-rata Level (Bagian B)
     public double getAverageLevel() {
         if (characterList.isEmpty()) return 0.0;
         int total = 0;
