@@ -85,3 +85,24 @@ Data diawali di `Main` dengan menginstansiasi `CharacterManager` dan menambahkan
 
 ## Dokumen Analisis (Bagian D)
 [Dokumen Analisis GUI & MVC - Google Docs](https://docs.google.com/document/d/14EX5tiufCEO7KzcD3NU9e-rfu9R4p5NbmbwNcC3ZSJk/edit)
+
+
+# Character Manager
+
+## TP10 - Sprint #4: Theming, Properti Komponen & Analisis MVC
+
+### Screenshots
+| Sebelum (v0.3) | Sesudah (v0.4) |
+| :---: | :---: |
+| ![v0.3](screenshots/sebelum.png) | ![v0.4](screenshots/sesudah.png) |
+
+
+### Mengapa Warna Disimpan di AppTheme dan Bukan di Character?
+Pemisahan ini menerapkan prinsip arsitektur **Model-View-Controller (MVC)**[cite: 1, 2]. Class `Character` bertindak sebagai **Model** yang hanya menyimpan data bisnis murni (seperti nama, tipe, dan level) tanpa terikat pada pustaka GUI[cite: 1, 2, 7]. Sementara itu, `AppTheme` berada pada layer **View** yang bertanggung jawab penuh atas presentasi visual dan tema antarmuka[cite: 1, 2, 7]. Menyimpan warna di `Character` akan mengotori Model dengan dependensi GUI (`java.awt.Color`), yang menyulitkan reuse/portabilitas kode jika aplikasi dikembangkan ke platform lain di masa depan (seperti CLI, web API, atau Android)[cite: 7].
+
+### Daftar Properti Tambahan yang Dipilih
+1. **`setToolTipText`**: Menampilkan informasi detail karakter (`Nama`, `Tipe`, dan `Level`) saat kursor diarahkan di atas kartu karakter[cite: 1, 7]. Properti ini memberikan akses informasi cepat kepada pengguna tanpa memenuhi tata letak antarmuka utama[cite: 7].
+2. **`setEnabled(false)`**: Menonaktifkan komponen visual untuk karakter dengan level 1 guna memberikan indikasi visual langsung bahwa karakter tersebut masih dalam tingkat pemula / belum aktif[cite: 1, 7].
+
+### Analisis Properti & MVC (Bagian D)
+Dokumen analisis lengkap (Google Docs): [JavaVisual_TP10_Yeremia Mesakh S. kembaren](https://docs.google.com/document/d/120gx5ux0hVXqkAvtymBfCyJa5lnykC9NxU0MtOs33yg/edit)
