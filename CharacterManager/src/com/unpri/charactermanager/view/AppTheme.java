@@ -16,8 +16,8 @@ public class AppTheme {
     
     // Warna per Role
     public static final Color COLOR_ROLE_WARRIOR = Color.decode("#E74C3C");
-    public static final Color COLOR_ROLE_MAGE = Color.decode("#9B59B6");
-    public static final Color COLOR_ROLE_ARCHER = Color.decode("#2ECC71");
+    public static final Color COLOR_ROLE_MAGE = Color.decode("#a1db0f");
+    public static final Color COLOR_ROLE_ARCHER = Color.decode("#14e76c");
 
     // Minimal 3 Font (menggunakan Logical Fonts)
     public static final Font FONT_TITLE = new Font(Font.SANS_SERIF, Font.BOLD, 18);
