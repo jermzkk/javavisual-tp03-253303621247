@@ -14,7 +14,7 @@ public class Character {
         this.level = level;
     }
 
-    // Copy Constructor (Digunakan untuk Defensive Copying)
+    // Copy Constructor (Defensive Copying)
     public Character(Character other) {
         if (other != null) {
             this.name = other.name;
@@ -38,6 +38,22 @@ public class Character {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    // Getter Hit Points
+    public int getHitPoints() {
+        // Jika CharacterType memiliki method getBaseHp():
+        // return type.getBaseHp() + (level * 10);
+        
+        return 100 + (level * 20);
+    }
+
+    // Getter Attack Power
+    public int getAttackPower() {
+        // Jika CharacterType memiliki method getBaseAtk():
+        // return type.getBaseAtk() + (level * 5);
+        
+        return 15 + (level * 5);
     }
 
     @Override

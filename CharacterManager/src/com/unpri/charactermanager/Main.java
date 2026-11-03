@@ -22,8 +22,11 @@ public class Main {
             manager.addCharacter(new Character("Shadow", CharacterType.ASSASSIN, 18));
             manager.addCharacter(new Character("Luna", CharacterType.HEALER, 14));
 
-            MainWindow window = new MainWindow(manager);
+          MainWindow window = new MainWindow(manager.getCharacterList());
             window.setVisible(true);
+
+
+            
         });
     }
 }

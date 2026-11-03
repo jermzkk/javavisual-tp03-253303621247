@@ -1,72 +1,72 @@
 package com.unpri.charactermanager.view;
 
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.util.List; // Diganti dari ArrayList ke List
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import com.unpri.charactermanager.model.Character;
-import com.unpri.charactermanager.model.CharacterManager;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class MainWindow extends JFrame {
 
-    public MainWindow(CharacterManager manager) {
-        setTitle("Character Manager Sprint #4");
+    private JPanel mainPanel;                    // container utama
+    private List<Character> characterList;       // Tipe data diubah menjadi List<Character>
+
+    public MainWindow(List<Character> characterList) { // Parameter diubah menjadi List<Character>
+        super("Character Manager v0.4");          // versi naik: sprint #4
+        this.characterList = characterList;
+
+        initComponents();                         // 1. susun semua komponen dulu
+
+        pack();                                   // 2. ukuran jendela mengikuti isi
+        setMinimumSize(new Dimension(420, 300));  // 3. cegah jendela terlalu kecil
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+        setLocationRelativeTo(null);              // 4. pusatkan SETELAH pack()
+    }
 
-        // Panel tempat daftar kartu karakter
-        JPanel listPanel = new JPanel();
-        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+    private void initComponents() {
+        // GridLayout(0, 1, 0, 8): berapa pun baris, 1 kolom, jarak vertikal 8 px.
+        mainPanel = new JPanel(new GridLayout(0, 1, 0, 8));
+        mainPanel.setBackground(AppTheme.BG_MAIN);                           // warna latar panel
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16)); // padding luar
 
-        for (Character c : manager.getCharacterList()) {
-            // Membuat panel kartu individual untuk setiap karakter
-            JPanel cardPanel = new JPanel();
-            cardPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        mainPanel.add(createTitleLabel());          // judul di atas
 
-            JLabel label = new JLabel(c.getName() + " - " + c.getType() + " (Lvl " + c.getLevel() + ")");
-            
-            // Pewarnaan latar belakang berdasarkan role (View Layer)
-            cardPanel.setBackground(AppTheme.colorFor(String.valueOf(c.getType())));
-            cardPanel.setOpaque(true); // Wajib agar latar belakang berwarna
-            
-            // Mini-Challenge: Level >= 5 (Batas disimpan sebagai konstanta di AppTheme)
-            if (c.getLevel() >= AppTheme.HIGH_LEVEL_THRESHOLD) {
-                label.setForeground(AppTheme.COLOR_ACCENT_GOLD);
-                label.setFont(AppTheme.FONT_LEVEL_GOLD);
-                cardPanel.setBorder(AppTheme.BORDER_HIGH_LEVEL);
-            } else {
-                label.setForeground(AppTheme.COLOR_TEXT_DEFAULT);
-                label.setFont(AppTheme.FONT_BODY);
-                cardPanel.setBorder(AppTheme.BORDER_CARD);
-            }
-
-            // Properti Tambahan 1: Tooltip detail HP dan ATK
-            // Properti Tambahan 1: Tooltip detail karakter (menggunakan getter yang ada di Model)
-cardPanel.setToolTipText("Karakter: " + c.getName() + " | Tipe: " + c.getType() + " | Level: " + c.getLevel());
-
-            // Properti Tambahan 2: Dinonaktifkan jika Level 1
-            if (c.getLevel() == 1) {
-                cardPanel.setEnabled(false);
-                label.setEnabled(false);
-            }
-
-            cardPanel.add(label);
-            listPanel.add(cardPanel);
+        for (Character c : characterList) {          // satu kartu per karakter
+            mainPanel.add(createCharacterLabel(c));
         }
 
-        JScrollPane scrollPane = new JScrollPane(listPanel);
-        add(scrollPane, BorderLayout.CENTER);
+        add(mainPanel);                             // pasang panel ke JFrame
+    }
 
-        // Label Statistik
-        JLabel avgLabel = new JLabel(String.format("Rata-rata Level: %.2f", manager.getAverageLevel()), SwingConstants.CENTER);
-        
-        // Menggunakan Font & Border dari AppTheme (Bukan new Font(...) lagi)
-        avgLabel.setFont(AppTheme.FONT_TITLE);
-        avgLabel.setForeground(AppTheme.COLOR_PRIMARY);
-        avgLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(avgLabel, BorderLayout.SOUTH);
+    /** Membuat judul layar. */
+    private JLabel createTitleLabel() {
+        JLabel lbl = new JLabel("Daftar Karakter (" + characterList.size() + ")",
+                                SwingConstants.CENTER);   // teks di tengah label
+        lbl.setFont(AppTheme.FONT_TITLE);                 // font judul dari tema
+        lbl.setForeground(AppTheme.TEXT_MAIN);            // warna teks judul
+        return lbl;
+    }
 
-        // Menyesuaikan ukuran jendela otomatis berdasarkan komponen di dalamnya
-        this.pack();
+    /** Membuat satu kartu karakter (JLabel berwarna sesuai role). */
+    private JLabel createCharacterLabel(Character c) {
+        String info = c.getName() + " | " + c.getType()
+                    + " | Lv." + c.getLevel()
+                    + " | HP:" + c.getHitPoints()
+                    + " | ATK:" + c.getAttackPower();     // hanya MEMBACA lewat getter
+
+        JLabel lbl = new JLabel(info);
+        lbl.setFont(AppTheme.FONT_BODY);                          // font isi
+        lbl.setForeground(AppTheme.TEXT_LIGHT);                   // teks putih
+        lbl.setBackground(AppTheme.colorFor(c.getType()));        // warna dari role
+        lbl.setOpaque(true);                                      // WAJIB agar background tampak
+        lbl.setBorder(AppTheme.CARD_BORDER);                      // padding kartu
+        lbl.setToolTipText(AppTheme.describe(c.getType()));       // bantuan saat hover
+        lbl.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // kursor tangan
+        return lbl;
     }
 }

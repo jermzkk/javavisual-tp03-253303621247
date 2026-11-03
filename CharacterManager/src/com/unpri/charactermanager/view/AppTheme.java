@@ -1,47 +1,52 @@
 package com.unpri.charactermanager.view;
 
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
+import java.awt.Color;                       // kelas warna AWT
+import java.awt.Font;                        // kelas font AWT
+import javax.swing.BorderFactory;            // pabrik border
+import javax.swing.border.Border;            // tipe objek border
+import com.unpri.charactermanager.model.CharacterType; // enum dari Model (View boleh membaca Model)
 
-public class AppTheme {
-    // Batas level untuk mini-challenge (konstanta bernama)
-    public static final int HIGH_LEVEL_THRESHOLD = 5;
+/**
+ * Pusat gaya tampilan Character Manager.
+ * Mengubah tema aplikasi cukup dengan mengedit file ini.
+ */
+public final class AppTheme {
 
-    // Minimal 3 Warna
-    public static final Color COLOR_PRIMARY = Color.decode("#2C3E50");
-    public static final Color COLOR_ACCENT_GOLD = Color.decode("#F1C40F");
-    public static final Color COLOR_TEXT_DEFAULT = Color.decode("#333333");
-    
-    // Warna per Role
-    public static final Color COLOR_ROLE_WARRIOR = Color.decode("#E74C3C");
-    public static final Color COLOR_ROLE_MAGE = Color.decode("#a1db0f");
-    public static final Color COLOR_ROLE_ARCHER = Color.decode("#14e76c");
+    // ---------- Palet warna ----------
+    public static final Color BG_MAIN    = Color.decode("#13131f"); // latar jendela: hampir hitam
+    public static final Color TEXT_MAIN  = Color.decode("#dfe6e9"); // teks utama: abu terang
+    public static final Color TEXT_LIGHT = Color.WHITE;             // teks di atas kartu berwarna
+    public static final Color GOLD       = Color.decode("#fdcb6e"); // aksen untuk karakter level tinggi
 
-    // Minimal 3 Font (menggunakan Logical Fonts)
-    public static final Font FONT_TITLE = new Font(Font.SANS_SERIF, Font.BOLD, 18);
-    public static final Font FONT_BODY = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
-    public static final Font FONT_LEVEL_GOLD = new Font(Font.SANS_SERIF, Font.BOLD, 12);
+    // ---------- Font ----------
+    public static final Font FONT_TITLE = new Font("SansSerif", Font.BOLD, 22);   // judul layar
+    public static final Font FONT_BODY  = new Font("SansSerif", Font.PLAIN, 14);  // isi kartu
+    public static final Font FONT_MONO  = new Font("Monospaced", Font.PLAIN, 13); // angka sejajar
 
-    // Minimal 1 Border
-    public static final Border BORDER_CARD = BorderFactory.createLineBorder(Color.GRAY, 1);
-    public static final Border BORDER_HIGH_LEVEL = BorderFactory.createLineBorder(COLOR_ACCENT_GOLD, 2);
+    // ---------- Border ----------
+    // Border bersifat immutable, jadi aman dipakai ulang oleh banyak komponen.
+    public static final Border CARD_BORDER =
+            BorderFactory.createEmptyBorder(8, 12, 8, 12); // atas, kiri, bawah, kanan
 
-    // Method colorFor untuk memetakan role ke warna
-   public static Color colorFor(Object type) {
-    if (type == null) return COLOR_PRIMARY;
-    String typeName = type.toString().toUpperCase();
-    
-    switch (typeName) {
-        case "WARRIOR":
-            return COLOR_ROLE_WARRIOR;
-        case "MAGE":
-            return COLOR_ROLE_MAGE;
-        case "ARCHER":
-            return COLOR_ROLE_ARCHER;
-        default:
-            return COLOR_PRIMARY;
+    private AppTheme() { }  // class utilitas: konstruktor private mencegah new AppTheme()
+
+    /** Menerjemahkan role (data Model) menjadi warna kartu (urusan View). */
+    public static Color colorFor(CharacterType type) {
+        switch (type) {
+            case WARRIOR: return Color.decode("#d63031"); // merah
+            case MAGE:    return Color.decode("#0984e3"); // biru
+            case ARCHER:  return Color.decode("#00b894"); // hijau
+            default:      return Color.GRAY;              // cadangan bila ada role baru
+        }
+    }
+
+    /** Teks tooltip per role. */
+    public static String describe(CharacterType type) {
+        switch (type) {
+            case WARRIOR: return "Warrior: jarak dekat, HP tinggi";
+            case MAGE:    return "Mage: serangan sihir, HP rendah";
+            case ARCHER:  return "Archer: jarak jauh, seimbang";
+            default:      return "Role belum terdaftar";
         }
     }
 }
