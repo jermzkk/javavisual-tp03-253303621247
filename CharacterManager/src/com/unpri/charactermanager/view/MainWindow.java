@@ -7,66 +7,80 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame {
+    private final CharacterManager manager;
+    private final JPanel characterListPanel;
 
     public MainWindow(CharacterManager manager) {
+        this.manager = manager;
+
         setTitle("Character Manager Sprint #4");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        getContentPane().setBackground(AppTheme.COLOR_PRIMARY_BG);
         setLayout(new BorderLayout());
 
-        // Panel tempat daftar kartu karakter
-        JPanel listPanel = new JPanel();
-        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+        JLabel titleLabel = new JLabel("Daftar Karakter", SwingConstants.CENTER);
+        titleLabel.setFont(AppTheme.FONT_TITLE);
+        titleLabel.setForeground(AppTheme.COLOR_TEXT_DARK);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        add(titleLabel, BorderLayout.NORTH);
 
-        for (Character c : manager.getCharacterList()) {
-            // Membuat panel kartu individual untuk setiap karakter
-            JPanel cardPanel = new JPanel();
-            cardPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        characterListPanel = new JPanel();
+        characterListPanel.setLayout(new GridLayout(0, 2, 10, 10));
+        characterListPanel.setBackground(AppTheme.COLOR_PRIMARY_BG);
 
-            JLabel label = new JLabel(c.getName() + " - " + c.getType() + " (Lvl " + c.getLevel() + ")");
-            
-            // Pewarnaan latar belakang berdasarkan role (View Layer)
-            cardPanel.setBackground(AppTheme.colorFor(String.valueOf(c.getType())));
-            cardPanel.setOpaque(true); // Wajib agar latar belakang berwarna
-            
-            // Mini-Challenge: Level >= 5 (Batas disimpan sebagai konstanta di AppTheme)
-            if (c.getLevel() >= AppTheme.HIGH_LEVEL_THRESHOLD) {
-                label.setForeground(AppTheme.COLOR_ACCENT_GOLD);
-                label.setFont(AppTheme.FONT_LEVEL_GOLD);
-                cardPanel.setBorder(AppTheme.BORDER_HIGH_LEVEL);
-            } else {
-                label.setForeground(AppTheme.COLOR_TEXT_DEFAULT);
-                label.setFont(AppTheme.FONT_BODY);
-                cardPanel.setBorder(AppTheme.BORDER_CARD);
-            }
-
-            // Properti Tambahan 1: Tooltip detail HP dan ATK
-            // Properti Tambahan 1: Tooltip detail karakter (menggunakan getter yang ada di Model)
-cardPanel.setToolTipText("Karakter: " + c.getName() + " | Tipe: " + c.getType() + " | Level: " + c.getLevel());
-
-            // Properti Tambahan 2: Dinonaktifkan jika Level 1
-            if (c.getLevel() == 1) {
-                cardPanel.setEnabled(false);
-                label.setEnabled(false);
-            }
-
-            cardPanel.add(label);
-            listPanel.add(cardPanel);
-        }
-
-        JScrollPane scrollPane = new JScrollPane(listPanel);
+        JScrollPane scrollPane = new JScrollPane(characterListPanel);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
         add(scrollPane, BorderLayout.CENTER);
 
-        // Label Statistik
-        JLabel avgLabel = new JLabel(String.format("Rata-rata Level: %.2f", manager.getAverageLevel()), SwingConstants.CENTER);
-        
-        // Menggunakan Font & Border dari AppTheme (Bukan new Font(...) lagi)
-        avgLabel.setFont(AppTheme.FONT_TITLE);
-        avgLabel.setForeground(AppTheme.COLOR_PRIMARY);
-        avgLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(avgLabel, BorderLayout.SOUTH);
+        renderCharacters();
 
-        // Menyesuaikan ukuran jendela otomatis berdasarkan komponen di dalamnya
-        this.pack();
+        pack();
+        setLocationRelativeTo(null);
+    }
+
+    private void renderCharacters() {
+        characterListPanel.removeAll();
+
+        for (Character c : manager.getAllCharacters()) {
+            JPanel card = new JPanel();
+            card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+            card.setBorder(AppTheme.BORDER_CARD);
+            
+            card.setBackground(AppTheme.colorForRole(c.getType()));
+            card.setOpaque(true);
+
+            JLabel nameLabel = new JLabel("Nama: " + c.getName());
+            nameLabel.setFont(AppTheme.FONT_REGULAR);
+            nameLabel.setForeground(AppTheme.COLOR_TEXT_DARK);
+
+            JLabel roleLabel = new JLabel("Role: " + c.getType());
+            roleLabel.setFont(AppTheme.FONT_REGULAR);
+            roleLabel.setForeground(AppTheme.COLOR_TEXT_DARK);
+
+            JLabel levelLabel = new JLabel("Level: " + c.getLevel());
+            
+            if (c.getLevel() >= AppTheme.HIGH_LEVEL_THRESHOLD) {
+                levelLabel.setFont(AppTheme.FONT_GOLD_BOLD);
+                levelLabel.setForeground(AppTheme.COLOR_GOLD_HIGHLIGHT);
+            } else {
+                levelLabel.setFont(AppTheme.FONT_REGULAR);
+                levelLabel.setForeground(AppTheme.COLOR_TEXT_DARK);
+            }
+
+            card.setToolTipText("Karakter: " + c.getName() + " | Tipe: " + c.getType() + " | Level: " + c.getLevel());
+
+            if (c.getLevel() == 1) {
+                card.setEnabled(false);
+            }
+
+            card.add(nameLabel);
+            card.add(roleLabel);
+            card.add(levelLabel);
+
+            characterListPanel.add(card);
+        }
+
+        characterListPanel.revalidate();
+        characterListPanel.repaint();
     }
 }

@@ -1,30 +1,27 @@
 package com.unpri.charactermanager.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CharacterManager {
-    private List<Character> characterList;
+    private final List<Character> characters;
 
     public CharacterManager() {
-        this.characterList = new ArrayList<>();
+        this.characters = new ArrayList<>();
     }
 
-    public void addCharacter(Character c) {
-        characterList.add(c);
-    }
-
-    public List<Character> getCharacterList() {
-        return characterList;
-    }
-
-    // Perhitungan statistik Rata-rata Level (Bagian B)
-    public double getAverageLevel() {
-        if (characterList.isEmpty()) return 0.0;
-        int total = 0;
-        for (Character c : characterList) {
-            total += c.getLevel();
+    public void addCharacter(Character character) {
+        if (character != null) {
+            characters.add(character);
         }
-        return (double) total / characterList.size();
+    }
+
+    public List<Character> getAllCharacters() {
+        List<Character> copyList = new ArrayList<>();
+        for (Character c : characters) {
+            copyList.add(new Character(c));
+        }
+        return Collections.unmodifiableList(copyList);
     }
 }

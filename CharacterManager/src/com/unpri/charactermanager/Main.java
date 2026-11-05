@@ -9,19 +9,17 @@ import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
-        // Bagian A: Menggunakan SwingUtilities.invokeLater()[cite: 1]
+        CharacterManager manager = new CharacterManager();
+
+        // Minimal 6 karakter dengan variasi role dan level
+        manager.addCharacter(new Character("Arthur", CharacterType.WARRIOR, 7));
+        manager.addCharacter(new Character("Merlin", CharacterType.MAGE, 6));
+        manager.addCharacter(new Character("Robin", CharacterType.ARCHER, 4));
+        manager.addCharacter(new Character("Shadow", CharacterType.ASSASSIN, 8));
+        manager.addCharacter(new Character("Luna", CharacterType.HEALER, 5));
+        manager.addCharacter(new Character("Novice Tom", CharacterType.WARRIOR, 1));
+
         SwingUtilities.invokeLater(() -> {
-            CharacterManager manager = new CharacterManager();
-
-            // Data karakter awal
-            manager.addCharacter(new Character("Arthur", CharacterType.WARRIOR, 15));
-            manager.addCharacter(new Character("Merlin", CharacterType.MAGE, 20));
-            manager.addCharacter(new Character("Robin", CharacterType.ARCHER, 12));
-
-            // Bagian B: Menambah minimal 2 karakter baru[cite: 2]
-            manager.addCharacter(new Character("Shadow", CharacterType.ASSASSIN, 18));
-            manager.addCharacter(new Character("Luna", CharacterType.HEALER, 14));
-
             MainWindow window = new MainWindow(manager);
             window.setVisible(true);
         });

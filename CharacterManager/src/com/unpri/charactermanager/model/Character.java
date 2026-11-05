@@ -7,14 +7,12 @@ public class Character {
     private CharacterType type;
     private int level;
 
-    // Constructor Utama
     public Character(String name, CharacterType type, int level) {
         this.name = name;
         this.type = type;
         this.level = level;
     }
 
-    // Copy Constructor (Digunakan untuk Defensive Copying)
     public Character(Character other) {
         if (other != null) {
             this.name = other.name;
@@ -23,7 +21,6 @@ public class Character {
         }
     }
 
-    // Getter dan Setter
     public String getName() {
         return name;
     }
