@@ -49,4 +49,7 @@ public final class AppTheme {
             default:      return "Role belum terdaftar";
         }
     }
+
+    public static final Color BG_STATUS  = Color.decode("#0d0d1a"); // latar bar status: lebih gelap
+    public static final Color TEXT_MUTED = Color.decode("#9d9dbf"); // teks sekunder / metadata
 }

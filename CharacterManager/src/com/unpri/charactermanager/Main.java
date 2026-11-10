@@ -21,8 +21,11 @@ public class Main {
             // Bagian B: Menambah minimal 2 karakter baru[cite: 2]
             manager.addCharacter(new Character("Shadow", CharacterType.ASSASSIN, 18));
             manager.addCharacter(new Character("Luna", CharacterType.HEALER, 14));
+            manager.addCharacter(new Character("Artemis",   CharacterType.ARCHER,  6));
+            manager.addCharacter(new Character("Bima",      CharacterType.WARRIOR, 8));
+            manager.addCharacter(new Character("Circe",     CharacterType.MAGE,    2));
 
-          MainWindow window = new MainWindow(manager.getCharacterList());
+            MainWindow window = new MainWindow(manager.getCharacterList());
             window.setVisible(true);
 
 
